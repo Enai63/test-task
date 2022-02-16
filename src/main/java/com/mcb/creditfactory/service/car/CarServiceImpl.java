@@ -11,11 +11,13 @@ import java.util.Optional;
 
 @Service
 public class CarServiceImpl implements CarService {
-    @Autowired
-    private ExternalApproveService approveService;
+    private final ExternalApproveService approveService;
+    private final CarRepository carRepository;
 
-    @Autowired
-    private CarRepository carRepository;
+    public CarServiceImpl(ExternalApproveService approveService, CarRepository carRepository) {
+        this.approveService = approveService;
+        this.carRepository = carRepository;
+    }
 
     @Override
     public boolean approve(CarDto dto) {

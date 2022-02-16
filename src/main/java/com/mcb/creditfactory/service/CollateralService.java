@@ -11,8 +11,11 @@ import java.util.Optional;
 // TODO: reimplement this
 @Service
 public class CollateralService {
-    @Autowired
-    private CarService carService;
+    private final CarService carService;
+
+    public CollateralService(CarService carService) {
+        this.carService = carService;
+    }
 
     @SuppressWarnings("ConstantConditions")
     public Long saveCollateral(Collateral object) {

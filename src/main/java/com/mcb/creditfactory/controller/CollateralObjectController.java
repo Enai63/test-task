@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CollateralObjectController {
-    @Autowired
-    private CollateralService service;
+    private final CollateralService service;
+
+    public CollateralObjectController(CollateralService service) {
+        this.service = service;
+    }
 
     @PostMapping("/collateral/save")
     public HttpEntity<Long> save(@RequestBody Collateral object) {

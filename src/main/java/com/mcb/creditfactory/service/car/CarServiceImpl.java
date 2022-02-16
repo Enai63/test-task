@@ -4,13 +4,13 @@ import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.external.ExternalApproveService;
 import com.mcb.creditfactory.model.Car;
 import com.mcb.creditfactory.repository.CarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mcb.creditfactory.service.CommonService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class CarServiceImpl implements CarService {
+public class CarServiceImpl implements CommonService<Car, CarDto> {
     private final ExternalApproveService approveService;
     private final CarRepository carRepository;
 

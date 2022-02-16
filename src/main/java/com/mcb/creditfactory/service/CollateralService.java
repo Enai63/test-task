@@ -2,8 +2,7 @@ package com.mcb.creditfactory.service;
 
 import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.dto.Collateral;
-import com.mcb.creditfactory.service.car.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mcb.creditfactory.model.Car;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,9 +10,9 @@ import java.util.Optional;
 // TODO: reimplement this
 @Service
 public class CollateralService {
-    private final CarService carService;
+    private final CommonService<Car, CarDto> carService;
 
-    public CollateralService(CarService carService) {
+    public CollateralService(CommonService<Car, CarDto> carService) {
         this.carService = carService;
     }
 

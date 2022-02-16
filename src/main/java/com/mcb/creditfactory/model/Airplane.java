@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 
@@ -30,13 +31,16 @@ public class Airplane {
     private String brand;
     private String model;
     private String manufacturer;
+    private Integer fuelCapacity;
+    private Integer seats;
 
     @Column(name = "year_of_issue")
     private Short year;
 
-    private Integer fuelCapacity;
+    @Column(name = "assessed_value")
+    private BigDecimal value;
 
-    private Integer seats;
+
 
     @Override
     public boolean equals(Object a) {

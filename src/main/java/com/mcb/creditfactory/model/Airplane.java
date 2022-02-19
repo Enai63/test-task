@@ -1,53 +1,46 @@
 package com.mcb.creditfactory.model;
 
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.RequiredArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 import org.hibernate.Hibernate;
-import javax.persistence.Id;
-import javax.persistence.Entity;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 
 @Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
-@AllArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "AIRPLANE")
-public class Airplane {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String brand;
-    private String model;
+public class Airplane extends AbstractEntity{
+
+    @Column(name = "manufacturer")
     private String manufacturer;
+
+    @Column(name = "fuel_capacity")
     private Integer fuelCapacity;
+
+    @Column(name = "seats")
     private Integer seats;
 
-    @Column(name = "year_of_issue")
-    private Short year;
-
-    @Column(name = "assessed_value")
-    private BigDecimal value;
-
-
+    public Airplane(Long id, String brand, String model, Integer year,
+                    String manufacturer, Integer fuelCapacity, Integer seats) {
+        super(id, brand, model, year);
+        this.manufacturer = manufacturer;
+        this.fuelCapacity = fuelCapacity;
+        this.seats = seats;
+    }
 
     @Override
-    public boolean equals(Object a) {
-        if (this == a) return true;
-        if (a == null || Hibernate.getClass(this) != Hibernate.getClass(a)) return false;
-        Airplane airplane = (Airplane) a;
-        return id != null && Objects.equals(id, airplane.id);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Airplane airplane = (Airplane) o;
+        return getId() != null && Objects.equals(getId(), airplane.getId());
     }
 
     @Override

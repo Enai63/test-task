@@ -18,7 +18,7 @@ public class AirplaneAdapter implements CollateralObject {
     }
 
     @Override
-    public Short getYear() {
+    public Integer getYear() {
         return airplane.getYear();
     }
 

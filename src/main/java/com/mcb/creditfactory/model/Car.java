@@ -13,7 +13,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "CAR")
 public class Car extends AbstractEntity{

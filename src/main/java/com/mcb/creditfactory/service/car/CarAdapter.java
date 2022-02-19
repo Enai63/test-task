@@ -18,7 +18,7 @@ public class CarAdapter implements CollateralObject {
     }
 
     @Override
-    public Short getYear() {
+    public Integer getYear() {
         return car.getYear();
     }
 

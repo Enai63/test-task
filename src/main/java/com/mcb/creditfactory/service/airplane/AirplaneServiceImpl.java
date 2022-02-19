@@ -3,10 +3,14 @@ package com.mcb.creditfactory.service.airplane;
 import com.mcb.creditfactory.dto.AirplaneDto;
 import com.mcb.creditfactory.external.ExternalApproveService;
 import com.mcb.creditfactory.model.Airplane;
+import com.mcb.creditfactory.model.CostEstimates;
 import com.mcb.creditfactory.repository.AirplaneRepository;
 import com.mcb.creditfactory.service.CommonService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -40,11 +44,10 @@ public class AirplaneServiceImpl implements CommonService<Airplane, AirplaneDto>
                 airplaneDto.getId(),
                 airplaneDto.getBrand(),
                 airplaneDto.getModel(),
+                airplaneDto.getYear(),
                 airplaneDto.getManufacturer(),
                 airplaneDto.getFuelCapacity(),
-                airplaneDto.getSeats(),
-                airplaneDto.getYear(),
-                airplaneDto.getValue()
+                airplaneDto.getSeats()
         );
     }
 
@@ -58,12 +61,27 @@ public class AirplaneServiceImpl implements CommonService<Airplane, AirplaneDto>
                 airplane.getFuelCapacity(),
                 airplane.getSeats(),
                 airplane.getYear(),
-                airplane.getValue()
+                getLastCostEstimateValue(airplane)
         );
     }
 
     @Override
     public Long getId(Airplane airplane) {
         return airplane.getId();
+    }
+
+    @Override
+    public BigDecimal getLastCostEstimateValue(Airplane airplane) {
+        BigDecimal value;
+        try {
+            value = airplane.getCostEstimatesList()
+                    .stream()
+                    .max(Comparator.comparing(CostEstimates::getAssessedValue))
+                    .get()
+                    .getAssessedValue();
+        } catch (NoSuchElementException exception) {
+            value = BigDecimal.ZERO;
+        }
+        return value;
     }
 }

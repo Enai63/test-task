@@ -1,5 +1,6 @@
 package com.mcb.creditfactory.service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 public interface CommonService<T, D> {
@@ -9,4 +10,5 @@ public interface CommonService<T, D> {
     T fromDto(D dto);
     D toDTO(T type);
     Long getId(T type);
+    BigDecimal getLastCostEstimateValue(T entity);
 }

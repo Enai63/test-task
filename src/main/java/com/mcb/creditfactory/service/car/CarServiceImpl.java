@@ -3,10 +3,14 @@ package com.mcb.creditfactory.service.car;
 import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.external.ExternalApproveService;
 import com.mcb.creditfactory.model.Car;
+import com.mcb.creditfactory.model.CostEstimates;
 import com.mcb.creditfactory.repository.CarRepository;
 import com.mcb.creditfactory.service.CommonService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -35,14 +39,13 @@ public class CarServiceImpl implements CommonService<Car, CarDto> {
     }
 
     @Override
-    public Car fromDto(CarDto dto) {
+    public Car fromDto(CarDto carDto) {
         return new Car(
-                dto.getId(),
-                dto.getBrand(),
-                dto.getModel(),
-                dto.getPower(),
-                dto.getYear(),
-                dto.getValue()
+                carDto.getId(),
+                carDto.getBrand(),
+                carDto.getModel(),
+                carDto.getYear(),
+                carDto.getPower()
         );
     }
 
@@ -54,12 +57,27 @@ public class CarServiceImpl implements CommonService<Car, CarDto> {
                 car.getModel(),
                 car.getPower(),
                 car.getYear(),
-                car.getValue()
+                getLastCostEstimateValue(car)
         );
     }
 
     @Override
     public Long getId(Car car) {
         return car.getId();
+    }
+
+    @Override
+    public BigDecimal getLastCostEstimateValue(Car car) {
+        BigDecimal value;
+        try {
+            value = car.getCostEstimatesList()
+                    .stream()
+                    .max(Comparator.comparing(CostEstimates::getAssessedValue))
+                    .get()
+                    .getAssessedValue();
+        } catch (NoSuchElementException exception) {
+            value = BigDecimal.ZERO;
+        }
+        return value;
     }
 }

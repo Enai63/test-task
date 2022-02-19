@@ -1,13 +1,15 @@
 package com.mcb.creditfactory.dto;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonTypeName("airplane")
@@ -18,6 +20,6 @@ public class AirplaneDto implements Collateral {
     private String manufacturer;
     private Integer fuelCapacity;
     private Integer seats;
-    private Short year;
+    private Integer year;
     private BigDecimal value;
 }

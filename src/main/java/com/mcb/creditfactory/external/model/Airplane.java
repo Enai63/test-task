@@ -1,4 +1,4 @@
-package com.mcb.creditfactory.model;
+package com.mcb.creditfactory.external.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,9 +1,8 @@
-package com.mcb.creditfactory.model;
+package com.mcb.creditfactory.external.model;
 
 import lombok.Setter;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;

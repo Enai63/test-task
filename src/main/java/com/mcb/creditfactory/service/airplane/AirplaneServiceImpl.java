@@ -2,8 +2,8 @@ package com.mcb.creditfactory.service.airplane;
 
 import com.mcb.creditfactory.dto.AirplaneDto;
 import com.mcb.creditfactory.external.ExternalApproveService;
-import com.mcb.creditfactory.model.Airplane;
-import com.mcb.creditfactory.model.CostEstimates;
+import com.mcb.creditfactory.external.model.Airplane;
+import com.mcb.creditfactory.external.model.CostEstimates;
 import com.mcb.creditfactory.repository.AirplaneRepository;
 import com.mcb.creditfactory.service.CommonService;
 import org.springframework.stereotype.Service;

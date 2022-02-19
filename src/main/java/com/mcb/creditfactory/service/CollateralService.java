@@ -2,7 +2,7 @@ package com.mcb.creditfactory.service;
 
 import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.dto.Collateral;
-import com.mcb.creditfactory.model.Car;
+import com.mcb.creditfactory.external.model.Car;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

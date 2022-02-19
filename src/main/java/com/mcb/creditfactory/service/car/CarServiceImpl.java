@@ -2,8 +2,8 @@ package com.mcb.creditfactory.service.car;
 
 import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.external.ExternalApproveService;
-import com.mcb.creditfactory.model.Car;
-import com.mcb.creditfactory.model.CostEstimates;
+import com.mcb.creditfactory.external.model.Car;
+import com.mcb.creditfactory.external.model.CostEstimates;
 import com.mcb.creditfactory.repository.CarRepository;
 import com.mcb.creditfactory.service.CommonService;
 import org.springframework.stereotype.Service;

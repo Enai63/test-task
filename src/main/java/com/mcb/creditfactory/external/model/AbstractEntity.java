@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Id;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +17,6 @@ import javax.persistence.FetchType;
 import java.util.List;
 import java.util.Objects;
 
-@Access(AccessType.FIELD)
 @Setter
 @Getter
 @MappedSuperclass
@@ -44,7 +41,7 @@ public class AbstractEntity {
     }
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private List<CostEstimates> costEstimatesList;
+    private List<CostEstimates> costEstimates;
 
     @Override
     public boolean equals(Object o) {

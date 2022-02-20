@@ -49,10 +49,10 @@ public class CollateralService {
                                 Long id = carFromDto.getId();
                                 if (id != null) {
                                     costList = carService.load(id)
-                                            .orElse(null).getCostEstimatesList();
+                                            .orElse(null).getCostEstimates();
                                 }
                                 costList.add(costEstimates);
-                                carFromDto.setCostEstimatesList(costList);
+                                carFromDto.setCostEstimates(costList);
                                 return carService.save(carFromDto);
                             }
                     )
@@ -76,10 +76,10 @@ public class CollateralService {
                                 Long id = airplaneFromDto.getId();
                                 if (id != null) {
                                     costList = airplaneService.load(id)
-                                            .orElse(null).getCostEstimatesList();
+                                            .orElse(null).getCostEstimates();
                                 }
                                 costList.add(costEstimates);
-                                airplaneFromDto.setCostEstimatesList(costList);
+                                airplaneFromDto.setCostEstimates(costList);
                                 return airplaneService.save(airplaneFromDto);
                             }
                     )

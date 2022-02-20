@@ -70,11 +70,11 @@ public class CarServiceImpl implements CommonService<Car, CarDto> {
     public BigDecimal getLastCostEstimateValue(Car car) {
         BigDecimal value;
         try {
-            value = car.getCostEstimatesList()
+            value = car.getCostEstimates()
                     .stream()
-                    .max(Comparator.comparing(CostEstimates::getAssessedValue))
+                    .max(Comparator.comparing(CostEstimates::getEstimatesValue))
                     .get()
-                    .getAssessedValue();
+                    .getEstimatesValue();
         } catch (NoSuchElementException exception) {
             value = BigDecimal.ZERO;
         }

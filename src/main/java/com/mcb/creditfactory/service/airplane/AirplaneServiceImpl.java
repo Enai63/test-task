@@ -74,11 +74,11 @@ public class AirplaneServiceImpl implements CommonService<Airplane, AirplaneDto>
     public BigDecimal getLastCostEstimateValue(Airplane airplane) {
         BigDecimal value;
         try {
-            value = airplane.getCostEstimatesList()
+            value = airplane.getCostEstimates()
                     .stream()
-                    .max(Comparator.comparing(CostEstimates::getAssessedValue))
+                    .max(Comparator.comparing(CostEstimates::getEstimatesValue))
                     .get()
-                    .getAssessedValue();
+                    .getEstimatesValue();
         } catch (NoSuchElementException exception) {
             value = BigDecimal.ZERO;
         }

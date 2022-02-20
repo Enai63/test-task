@@ -5,7 +5,6 @@ import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.dto.Collateral;
 import com.mcb.creditfactory.external.model.Airplane;
 import com.mcb.creditfactory.external.model.Car;
-import com.mcb.creditfactory.external.model.CostEstimates;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,7 +23,6 @@ public class CollateralService {
 
     @SuppressWarnings("ConstantConditions")
     public Long saveCollateral(Collateral object) {
-        CostEstimates costEstimates;
 
         if (object instanceof CarDto) {
             CarDto carDto = (CarDto) object;

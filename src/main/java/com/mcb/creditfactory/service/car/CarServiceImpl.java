@@ -6,21 +6,29 @@ import com.mcb.creditfactory.external.model.Car;
 import com.mcb.creditfactory.external.model.CostEstimates;
 import com.mcb.creditfactory.repository.CarRepository;
 import com.mcb.creditfactory.service.CommonService;
+import com.mcb.creditfactory.service.costesimates.CostEstimatesServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
-import java.util.Optional;
+
 
 @Service
 public class CarServiceImpl implements CommonService<Car, CarDto> {
     private final ExternalApproveService approveService;
     private final CarRepository carRepository;
+    private final CostEstimatesServiceImpl costEstimatesService;
 
-    public CarServiceImpl(ExternalApproveService approveService, CarRepository carRepository) {
+    public CarServiceImpl(ExternalApproveService approveService,
+                          CarRepository carRepository,
+                          CostEstimatesServiceImpl costEstimatesService) {
         this.approveService = approveService;
         this.carRepository = carRepository;
+        this.costEstimatesService = costEstimatesService;
     }
 
     @Override
@@ -40,13 +48,28 @@ public class CarServiceImpl implements CommonService<Car, CarDto> {
 
     @Override
     public Car fromDto(CarDto carDto) {
-        return new Car(
+        Car car =  new Car(
                 carDto.getId(),
                 carDto.getBrand(),
                 carDto.getModel(),
                 carDto.getYear(),
                 carDto.getPower()
         );
+        addCostEstimates(car, carDto);
+        return car;
+    }
+
+    @Override
+    public void addCostEstimates(Car car, CarDto carDto) {
+        CostEstimates costEstimates = costEstimatesService.save(carDto.getValue());
+        List<CostEstimates> costEstimatesListCar = car.getCostEstimates();
+        if (costEstimatesListCar != null) {
+            costEstimatesListCar.add(costEstimates);
+        } else {
+            List<CostEstimates> newList = new ArrayList<>();
+            newList.add(costEstimates);
+            car.setCostEstimates(newList);
+        }
     }
 
     @Override
@@ -80,4 +103,6 @@ public class CarServiceImpl implements CommonService<Car, CarDto> {
         }
         return value;
     }
+
+
 }

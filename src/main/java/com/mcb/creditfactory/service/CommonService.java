@@ -11,4 +11,5 @@ public interface CommonService<T, D> {
     D toDTO(T type);
     Long getId(T type);
     BigDecimal getLastCostEstimateValue(T entity);
+    void addCostEstimates(T type, D dto);
 }

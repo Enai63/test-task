@@ -6,21 +6,24 @@ import com.mcb.creditfactory.external.model.Airplane;
 import com.mcb.creditfactory.external.model.CostEstimates;
 import com.mcb.creditfactory.repository.AirplaneRepository;
 import com.mcb.creditfactory.service.CommonService;
+import com.mcb.creditfactory.service.costesimates.CostEstimatesServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AirplaneServiceImpl implements CommonService<Airplane, AirplaneDto> {
     private final ExternalApproveService approveService;
     private final AirplaneRepository airplaneRepository;
+    private final CostEstimatesServiceImpl costEstimatesService;
 
-    public AirplaneServiceImpl(ExternalApproveService approveService, AirplaneRepository airplaneRepository) {
+    public AirplaneServiceImpl(ExternalApproveService approveService,
+                               AirplaneRepository airplaneRepository,
+                               CostEstimatesServiceImpl costEstimatesService) {
         this.approveService = approveService;
         this.airplaneRepository = airplaneRepository;
+        this.costEstimatesService = costEstimatesService;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class AirplaneServiceImpl implements CommonService<Airplane, AirplaneDto>
 
     @Override
     public Airplane fromDto(AirplaneDto airplaneDto) {
-        return new Airplane(
+        Airplane newAirplane =  new Airplane(
                 airplaneDto.getId(),
                 airplaneDto.getBrand(),
                 airplaneDto.getModel(),
@@ -49,6 +52,9 @@ public class AirplaneServiceImpl implements CommonService<Airplane, AirplaneDto>
                 airplaneDto.getFuelCapacity(),
                 airplaneDto.getSeats()
         );
+        CostEstimates costEstimates = costEstimatesService.save(airplaneDto.getValue());
+        newAirplane.getCostEstimates().add(costEstimates);
+        return newAirplane;
     }
 
     @Override
@@ -83,5 +89,18 @@ public class AirplaneServiceImpl implements CommonService<Airplane, AirplaneDto>
             value = BigDecimal.ZERO;
         }
         return value;
+    }
+
+    @Override
+    public void addCostEstimates(Airplane airplane, AirplaneDto airplaneDto) {
+        CostEstimates costEstimates = costEstimatesService.save(airplaneDto.getValue());
+        List<CostEstimates> costEstimatesListCar = airplane.getCostEstimates();
+        if (costEstimatesListCar != null) {
+            costEstimatesListCar.add(costEstimates);
+        } else {
+            List<CostEstimates> newList = new ArrayList<>();
+            newList.add(costEstimates);
+            airplane.setCostEstimates(newList);
+        }
     }
 }

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Service
 public class CostEstimatesServiceImpl implements CostEstimatesService {
-    private CostEstimatesRepository costEstimatesRepository;
+    private final CostEstimatesRepository costEstimatesRepository;
 
     public CostEstimatesServiceImpl(CostEstimatesRepository costEstimatesRepository) {
         this.costEstimatesRepository = costEstimatesRepository;

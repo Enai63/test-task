@@ -27,12 +27,8 @@ public class CollateralService {
         if (object instanceof CarDto) {
             CarDto carDto = (CarDto) object;
 
-            boolean approveCar = carService.approve(carDto);
-            if (!approveCar) {
-                return null;
-            }
-
             return Optional.of(carDto)
+                    .filter(carService::approve)
                     .map(carService::fromDto)
                     .map(carService::save)
                     .map(carService::getId)
@@ -41,12 +37,7 @@ public class CollateralService {
         } else if (object instanceof AirplaneDto) {
             AirplaneDto airplaneDto = (AirplaneDto) object;
 
-            boolean approveAirplane = airplaneService.approve(airplaneDto);
-            if (!approveAirplane) {
-                return null;
-            }
-
-            return Optional.of(airplaneDto)
+            return Optional.of(airplaneDto).filter(airplaneService::approve)
                     .map(airplaneService::fromDto)
                     .map(airplaneService::save)
                     .map(airplaneService::getId)

@@ -37,7 +37,8 @@ public class CollateralService {
         } else if (object instanceof AirplaneDto) {
             AirplaneDto airplaneDto = (AirplaneDto) object;
 
-            return Optional.of(airplaneDto).filter(airplaneService::approve)
+            return Optional.of(airplaneDto)
+                    .filter(airplaneService::approve)
                     .map(airplaneService::fromDto)
                     .map(airplaneService::save)
                     .map(airplaneService::getId)
